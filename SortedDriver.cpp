@@ -1,3 +1,5 @@
+//CONNOR HARBER 10/25/2017
+
 // SortedDriver.cpp
 
 // tom bailey   1445  25 mar 2014
@@ -63,8 +65,57 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+
+	double a = 0;
+	double b = 0;
+	double c = 0;
+	double MDiff = 0;
+	double Diffa = 0;
+	double Diffb = 0;
+	double iso = 0;
+
+
+	for (int i = 0; i < number.size(); i++)
+	{
+		if (i == 0)
+		{
+			a = number[i];
+			b = number[i + 1];
+			MDiff = b - a;
+			iso = a;
+		}
+
+		else if (i == number.size() - 1)
+		{
+			b = number[i];
+			a = number[i - 1];
+			Diffa = b - a;
+			if (Diffa > MDiff)
+			{
+				iso = b;
+			}
+		}
+		else
+		{
+			a = number[i - 1];
+			b = number[i];
+			c = number[i + 1];
+			Diffa = b - a;
+			Diffb = c - b;
+			if (Diffa < Diffb && Diffa >= MDiff)
+			{
+				MDiff = Diffa;
+				iso = b;
+			}
+			else if (Diffb < Diffa && Diffb >= MDiff)
+			{
+				MDiff = Diffb;
+				iso = b;
+			}
+		}
+	}
+
+	return iso;
 }
 
 
@@ -74,8 +125,26 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	string a = "";
+	string b = "";
+	int cnt = 0;
+	std::list<string>::const_iterator itrA = A.begin();
+	std::list<string>::const_iterator itrB = B.begin();
+	while (itrB != B.end())
+	{
+		b.append(" ").append(*itrA);
+		itrB++;
+	}
+	while (itrA != A.end())
+	{
+		a = *itrA;
+		if (b.find(a) == string::npos)
+		{
+			cnt++;
+		}
+		itrA++;
+	}
+	return cnt;
 }
 
 
